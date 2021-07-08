@@ -55,7 +55,7 @@ readInput.on('line', (input) => {
 
 		case 'COMMIT':
          transactionIndex = db.commit();
-         else console.log("Commited to DB with Transaction ID as " + transactionIndex);
+         console.log("Commited to DB with Transaction ID as " + transactionIndex);
          break;
 
       case 'DOWNLOAD':
@@ -67,10 +67,14 @@ readInput.on('line', (input) => {
 			console.log('----------- InMemDB Closed!! -----------');
 			break;
 
+      case 'SHOW':
+         if (key == config.PASSWORD) db.show();
+         break;
+
 		case 'OPTIONS':
 			console.log('options:\nSET <Key> <Val>\n' +
 				'GET <Key>\nDELETE <Key>\nCOUNT <value>\n' +
-				'BEGIN\nROLLBACK\nCOMMIT\nEND\n');
+				'BEGIN\nROLLBACK\nCOMMIT\nSHOW <PASSWORD>\nEND\n');
 			break;
 
 		default:
