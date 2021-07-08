@@ -7,7 +7,7 @@ const { config } = require('./config.js') // Importing Password! -> config.PASSW
 const readInput = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
-  terminal: false
+  terminal: false //ToSEE
 });
 
 let db = new dbBackend();
@@ -83,6 +83,6 @@ readInput.on('line', (input) => {
 			break;
    }
 
-   db.manageState();
+   db.manageState(); // ToSEE
 
 })
