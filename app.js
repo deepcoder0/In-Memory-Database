@@ -69,6 +69,7 @@ readInput.on('line', (input) => {
 
       case 'SHOW':
          if (key == config.PASSWORD) db.show();
+         else console.log('Please enter correct Password!');
          break;
 
 		case 'OPTIONS':
