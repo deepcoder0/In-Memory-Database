@@ -77,6 +77,18 @@ module.exports = class myDB {
             console.log('Database at Transaction Index ' + index + ' : ' + JSON.stringify(transaction));
          })
        };
+      // TRANSACTION FUNCTIONS 
+
+      /* {@function} begin - Begins a new transaction. Turns off auto-commit
+       */
+       this.begin = function () {
+         if (!this.transactionMode) {
+            this.transactionMode = true;
+         }
+         // Make sure stage and and main are in sync
+         this.data[this.tIndex+1] = clone(this.data[this.tIndex]);
+         this.tIndex++;
+       }; 
 
 
 
