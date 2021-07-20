@@ -89,6 +89,8 @@ module.exports = class myDB {
          this.data[this.tIndex+1] = clone(this.data[this.tIndex]);
          this.tIndex++;
        }; 
+      
+      // COMMIT FUNCTION
 
 
 
