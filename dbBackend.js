@@ -90,12 +90,39 @@ module.exports = class myDB {
          this.tIndex++;
        }; 
       
-      // COMMIT FUNCTION
+      /* {@function} commit - Commit all of the open transactions. Turns on auto-commit
+    */
+    this.commit = function () {
+    	if (this.tIndex === 0) {
+        this.transactionMode = false;
+    	}
+    	if (this.tIndex > 0) {
+	    	// Sync Data from transaction
+	    	this.data[this.tIndex-1] = clone(this.data[this.tIndex]);
+	    	// Clear out the transaction data
+	    	this.data[this.tIndex] = {};
+	    	// Point to earlier version of data
+        this.tIndex--;
+      }
+      return this.tIndex;
+    };
 
+  /* {@function} download - Downloads the content of DB into db_dump.txt
+    * @return {Number} the new transaction index
+    */
 
-
-
-
+    this.download = function () {
+      var db_dump;
+      this.data.forEach((entry) => {
+        db_dump = JSON.stringify(entry);
+      });
+      fs.writeFileSync('database.json', db_dump);
+      console.log("------- Saving DB to db_dump.json -------");
+    }
+    
+	/* {@function} rollback - Rolls back the most recent transaction.
+    * @return {Number} the new transaction index
+    */
 
    }
 }
