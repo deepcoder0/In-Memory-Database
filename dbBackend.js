@@ -123,6 +123,26 @@ module.exports = class myDB {
 	/* {@function} rollback - Rolls back the most recent transaction.
     * @return {Number} the new transaction index
     */
+    this.rollback = function () {
+    	if (this.tIndex === 0) {
+    		return -1;
+    	}
+    	if (this.transactionMode) {
+    		this.data[this.tIndex] = {};
+    		 this.tIndex--;
+    	}
+    	return this.tIndex;
+    }
 
-   }
-}
+  /* {@function} manageState - Auxilary function to manage state between
+    * transactionMode(auto-commit-off) and regular(auto-commit-on) mode
+    */
+    this.manageState = function () {
+	    if (!this.transactionMode) {
+			// commit immediately
+			this.data[0] = clone(this.data[this.tIndex]);
+		}
+    }
+  }
+
+};
